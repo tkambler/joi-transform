@@ -60,4 +60,6 @@ var transform = function(input, schema, transforms) {
 
 };
 
-module.exports = transform;
+Joi.transform = transform;
+
+module.exports = Joi;
