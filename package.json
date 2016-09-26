@@ -1,12 +1,12 @@
 {
   "name": "joi-transform",
   "version": "0.0.2",
-  "description": "",
+  "description": "A simple, promise-based API that extends the Joi object schema validator with functionality for performing transformations (synchronous / asynchronous) on successfully-validated data.",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha ./test"
   },
-  "author": "",
+  "author": "Tim Ambler <tkambler@gmail.com> (http://bitcubby.com)",
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.1.1",
@@ -16,5 +16,9 @@
   },
   "devDependencies": {
     "mocha": "^2.3.4"
+  },
+  "repository": {
+    "type": "git",
+    "url" : "https://github.com/tkambler/joi-transform.git"
   }
 }
