@@ -6,16 +6,10 @@ var Joi = Promise.promisifyAll(require('joi'));
 var DepGraph = require('dependency-graph').DepGraph;
 var getParamNames = require('./lib/get-param-names');
 
-var transform = function(input, schema, options, transforms) {
+var transform = function(input, schema, transforms, options) {
 
     input = input || {};
     schema = schema || {};
-    if (_.isUndefined(transforms)) {
-        transforms = options;
-        options = {};
-    } else {
-    }
-
     transforms = transforms || {};
     options = options || {};
 

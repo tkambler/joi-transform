@@ -49,7 +49,7 @@ describe('tests', function() {
 
     });
 
-    it('should validate / transform and ignore unknown keys', function(done) {
+    it('should validate / transform and ignore unknown keys (with transforms)', function(done) {
 
         let input = {
             'first_name': 'John',
@@ -63,14 +63,14 @@ describe('tests', function() {
             'last_name': Joi.string().required().label('Last Name'),
             'age': Joi.number().integer().positive().required().label('Age')
         }, {
-            'stripUnknown': true
-        }, {
             'name': function(data, something) {
                 return `Something: ${something}`;
             },
             'something': function(data) {
                 return data.age;
             }
+        },  {
+            'stripUnknown': true
         })
             .spread((data, transforms) => {
 
@@ -79,6 +79,32 @@ describe('tests', function() {
                     'name': 'Something: 30',
                     'something': 30
                 }));
+
+            })
+            .then(done)
+            .catch(done);
+
+    });
+
+    it('should validate / transform and ignore unknown keys (without transforms)', function(done) {
+
+        let input = {
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'age': 30,
+            'foo': 'bar'
+        };
+
+        return Joi.transform(input, {
+            'first_name': Joi.string().required().label('First Name'),
+            'last_name': Joi.string().required().label('Last Name'),
+            'age': Joi.number().integer().positive().required().label('Age')
+        }, null, {
+            'stripUnknown': true
+        })
+            .spread((data, transforms) => {
+
+                assert(_.isEqual(data, _.pick(input, 'first_name', 'last_name', 'age')));
 
             })
             .then(done)
