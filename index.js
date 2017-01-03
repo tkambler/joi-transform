@@ -6,13 +6,20 @@ var Joi = Promise.promisifyAll(require('joi'));
 var DepGraph = require('dependency-graph').DepGraph;
 var getParamNames = require('./lib/get-param-names');
 
-var transform = function(input, schema, transforms) {
+var transform = function(input, schema, options, transforms) {
 
     input = input || {};
     schema = schema || {};
-    transforms = transforms || {};
+    if (_.isUndefined(transforms)) {
+        transforms = options;
+        options = {};
+    } else {
+    }
 
-    return Joi.validateAsync(input, schema)
+    transforms = transforms || {};
+    options = options || {};
+
+    return Joi.validateAsync(input, schema, options)
         .then((validatedInput) => {
 
             var graph = new DepGraph();
