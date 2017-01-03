@@ -1,18 +1,20 @@
 'use strict';
 
-var Joi = require('joi');
-var transform = require('../');
-var assert = require('assert');
+const Joi = require('../');
+const _ = require('lodash');
+const assert = require('assert');
 
-describe('transforms', function() {
+describe('tests', function() {
 
-    it('should herp', function() {
-
-        transform({
+    it('should validate and transform', function(done) {
+        
+        let input = {
             'first_name': 'John',
             'last_name': 'Doe',
             'age': 30
-        }, {
+        };
+
+        return Joi.transform(input, {
             'first_name': Joi.string().required(),
             'last_name': Joi.string().required(),
             'age': Joi.number().integer().positive().required().label('Age')
@@ -25,11 +27,16 @@ describe('transforms', function() {
             }
         })
             .spread((data, transforms) => {
+                
+                assert(_.isEqual(data, input));
+                assert(_.isEqual(transforms, {
+                    'name': 'Something: 30',
+                    'something': 30
+                }));
 
-                console.log('data', data);
-                console.log('transforms', transforms);
-
-            });
+            })
+            .then(done)
+            .catch(done);
 
     });
 
