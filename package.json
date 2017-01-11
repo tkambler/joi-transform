@@ -1,6 +1,6 @@
 {
   "name": "joi-transform",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A simple, promise-based API that extends the Joi object schema validator with functionality for performing transformations (synchronous / asynchronous) on successfully-validated data.",
   "main": "index.js",
   "scripts": {
