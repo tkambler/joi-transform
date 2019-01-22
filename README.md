@@ -17,9 +17,9 @@ The third argument - the transformation object - is used to define one or more t
 Transformation functions always receive as their first argument the result of Joi's validation process. They may also specify additional parameters to reference other entries within the transformation object.
 
 ```
-var transform = require('joi-transform');
+var Joi = require('joi-transform');
 
-transform({
+Joi.transform({
     'first_name': 'John',
     'last_name': 'Doe',
     'age': 30
